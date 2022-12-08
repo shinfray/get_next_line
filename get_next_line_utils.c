@@ -30,20 +30,15 @@ size_t	ft_strlen(char *str)
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	const size_t	full_size = size * count;
-	size_t			i;
-	void			*ptr;
+	size_t	full_size;
+	char	*ptr;
 
-
+	full_size = size * count;
 	ptr = malloc(full_size);
-	i = 0;
 	if (ptr != NULL)
 	{
-		while (i < full_size)
-		{
-			*ptr = '\0';
-			i++;
-		}
+		while (full_size-- > 0)
+			*(ptr++) = '\0';
 	}
 	return (ptr);
 }
