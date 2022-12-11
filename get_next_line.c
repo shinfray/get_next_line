@@ -37,7 +37,6 @@ ssize_t	ft_parse_until_newline(int fd, char *line, char **cache, char *buf)
 	ssize_t	ret;
 
 	ret = read(fd, buf, BUFFER_SIZE);
-	printf("%zu\n", ret);
 	if (ret < 1)
 		return (0);
 	buf[ret] = '\0';
@@ -48,7 +47,6 @@ ssize_t	ft_parse_until_newline(int fd, char *line, char **cache, char *buf)
 		line = ft_strnjoin(line, buf, ret);
 		ret = ft_parse_until_newline(fd, line, cache, buf);
 	}
-	printf("%zu\n", ret);
 
 	return (ret);
 }
@@ -63,7 +61,6 @@ char	*get_next_line(int	fd)
 	line = NULL;
 	if (cache != NULL)
 		ft_parse_until_newline(fd, line, cache, buf);
-	printf("coucou\n");
 
 	return (line);
 }
