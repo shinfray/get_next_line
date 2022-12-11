@@ -2,13 +2,13 @@
 
 void	ft_save_in_cache(int fd, char *line, char **cache, char *buf, size_t n)
 {
+	size_t	i;
+
+	i = 0;
 	line = ft_strnjoin(line, buf, n);
+	cache[fd] = ft_calloc(ft_strlen(buf) - n + 1, sizeof(*cache[fd]));
 	while (buf[n] != '\0')
-	{
-		*cache[fd] = buf[n];
-		++(cache[fd]);
-		++n;
-	}
+		cache[fd][i++] = buf[n++];
 }
 
 bool	ft_search_newline(int fd, char *line, char **cache, char *buf)
@@ -21,11 +21,13 @@ bool	ft_search_newline(int fd, char *line, char **cache, char *buf)
 		if (buf[i] == '\n')
 		{
 			ft_save_in_cache(fd, line, cache, buf, i + 1);
+
 			return (true);
 		}
 		else
 			++i;
 	}
+
 	return (false);
 }
 
@@ -38,16 +40,11 @@ ssize_t	ft_parse_until_newline(int fd, char *line, char **cache)
 	if (ret < 1)
 		return (0);
 	buf[BUFFER_SIZE] = '\0';
-	printf("%s ===buffer====\n", buf);
 	if (ft_search_newline(fd, line, cache, buf) == true)
-	{
 		return (0);
-	}
 	else
 	{
-		printf("it's in search nl\n");
 		line = ft_strnjoin(line, buf, BUFFER_SIZE);
-		printf("%s ========= line\n", line);
 		ret = ft_parse_until_newline(fd, line, cache);
 	}
 
@@ -61,9 +58,8 @@ char	*get_next_line(int	fd)
 
 	cache = ft_calloc(OPEN_MAX, sizeof(*cache));
 	line = NULL;
-	if (cache == NULL)
-		return (NULL);
-	ft_parse_until_newline(fd, line, cache);
+	if (cache != NULL)
+		ft_parse_until_newline(fd, line, cache);
 
 	return (line);
 }

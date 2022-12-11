@@ -13,7 +13,7 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)s);
 }
 
-static size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	const char	*ptr;
 	
@@ -33,7 +33,6 @@ void	*ft_calloc(size_t count, size_t size)
 	char	*ptr;
 
 	full_size = size * count;
-	printf("%zu ccalloc\n", full_size);
 	i = 0;
 	ptr = malloc(full_size);
 	if (ptr != NULL)
@@ -52,11 +51,8 @@ char	*ft_strnjoin(char const *s1, char const *s2, size_t n)
 	size_t	j;
 	char	*str;
 
-	printf("coucou\n");
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	printf("%s   s1\n", s1);
-	printf("%s   s2\n", s2);
 	i = 0;
 	j = 0;
 	if (n < s2_len)
@@ -70,12 +66,9 @@ char	*ft_strnjoin(char const *s1, char const *s2, size_t n)
 		++i;
 	}
 	while (j < s2_len)
-		str[i++] = s1[j++];
+		str[i++] = s2[j++];
 	str[i] = '\0';
 
-	printf("%s\n ====s1====\n", s1);
-	printf("%s\n ====s2====\n", s2);
-	printf("%s\n ====test du join====\n", str);
 	return (str);
 }
 
