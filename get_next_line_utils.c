@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shinfray <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/13 14:55:04 by shinfray          #+#    #+#             */
+/*   Updated: 2022/12/13 15:15:17 by shinfray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*ft_strchr(const char *s, int c)
@@ -16,13 +28,12 @@ char	*ft_strchr(const char *s, int c)
 size_t	ft_strlen(const char *str)
 {
 	const char	*ptr;
-	
+
 	if (str == NULL)
 		return (0);
 	ptr = str;
 	while (*ptr != '\0')
-		++ptr;	
-
+		++ptr;
 	return (ptr - str);
 }
 
@@ -68,7 +79,5 @@ char	*ft_strnjoin(char const *s1, char const *s2, size_t n)
 	while (j < s2_len)
 		str[i++] = s2[j++];
 	str[i] = '\0';
-
 	return (str);
 }
-

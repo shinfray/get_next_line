@@ -1,40 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shinfray <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/13 14:54:04 by shinfray          #+#    #+#             */
+/*   Updated: 2022/12/13 15:27:04 by shinfray         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-void	ft_save_in_cache(int fd, char *line, char **cache, char *buf, size_t n)
+void	ft_save_in_cache(char **line, char *buf)
 {
+	size_t	n;
 	size_t	i;
+	char	*ptr;
 
+	n = ft_strchr(buf, '\n') - buf + 1;
 	i = 0;
-	line = ft_strnjoin(line, buf, n);
-	cache[fd] = ft_calloc(ft_strlen(buf) - n + 1, sizeof(*cache[fd]));
-	while (buf[n] != '\0')
-		cache[fd][i++] = buf[n++];
-	printf("%s\n", line);
+	ptr = ft_strnjoin(*line, buf, n);
+	free(*line);
+	*line = ptr;
+	/*
+	 *cache[fd] = ft_calloc(ft_strlen(buf) - n + 1, sizeof(*cache[fd]));
+	 *while (buf[n] != '\0')
+	 *    cache[fd][i++] = buf[n++];
+	 */
 }
 
-/*
- *bool	ft_search_newline(int fd, char *line, char **cache, char *buf)
- *{
- *    size_t	i;
- *
- *    i = 0;
- *    while (buf[i] != '\0')
- *    {
- *        if (buf[i] == '\n')
- *        {
- *            ft_save_in_cache(fd, line, cache, buf, i + 1);
- *
- *            return (true);
- *        }
- *        else
- *            ++i;
- *    }
- *
- *    return (false);
- *}
- */
-
-char	ft_parse(int fd, char *line, char *buf, char *i)
+char	ft_parse(int fd, char **line, char *buf)
 {
 	ssize_t	ret;
 	char	*ptr;
@@ -43,40 +39,37 @@ char	ft_parse(int fd, char *line, char *buf, char *i)
 	if (ret < 1)
 		return (EOF_REACHED);
 	buf[ret] = '\0';
-	/*
-	 *if (cache[fd] != NULL)
-	 *    line = ft_strnjoin(cache[fd], buf, BUFFER_SIZE);
-	 */
-	ptr = ft_strchr(buf, '\n');
-	if (ptr != NULL)
-	{
-		*i = ptr - buf;
-
+	if (ft_strchr(buf, '\n') != NULL)
 		return (NEWLINE_FOUND);
-	}
 	else
 	{
-		line = ft_strnjoin(line, buf, ret);
-		printf("============\n%s\n=============\n", line);
-
+		ptr = ft_strnjoin(*line, buf, ret);
+		free(*line);
+		*line = ptr;
 		return (NEWLINE_NOT_FOUND);
 	}
 }
 
-char	*get_next_line(int	fd)
+char	*get_next_line(int fd)
 {
-	static char	*cache[OPEN_MAX];
+	//static char	*cache[OPEN_MAX];
 	char		*line;
 	char		buf[BUFFER_SIZE + 1];
 	char		file_state;
-	char		newline_index;
+
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || BUFFER_SIZE > SSIZE_MAX)
+		return (NULL);
 
 	line = NULL;
 	file_state = NEWLINE_NOT_FOUND;
 	while (file_state != EOF_REACHED)
-		file_state = ft_parse(fd, line, buf, &newline_index);
-	if (file_state == NEWLINE_FOUND)
-		ft_save_in_cache(fd, line, cache, buf, newline_index + 1);
-
+	{
+		file_state = ft_parse(fd, &line, buf);
+		if (file_state == NEWLINE_FOUND)
+		{
+			ft_save_in_cache(&line, buf);
+			return (line);
+		}
+	}
 	return (line);
 }
