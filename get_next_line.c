@@ -32,35 +32,40 @@ bool	ft_search_newline(int fd, char *line, char **cache, char *buf)
 	return (false);
 }
 
-ssize_t	ft_parse_until_newline(int fd, char *line, char **cache, char *buf)
+char	ft_parse_until_newline(int fd, char *line, char **cache, char *buf)
 {
 	ssize_t	ret;
 
 	ret = read(fd, buf, BUFFER_SIZE);
 	if (ret < 1)
-		return (0);
+		return (EOF_REACHED);
 	buf[ret] = '\0';
+	if (cache[fd] != NULL)
+		line = ft_strnjoin(cache[fd], buf, BUFFER_SIZE);
 	if (ft_search_newline(fd, line, cache, buf) == true)
-		return (0);
+		return (NEWLINE_FOUND);
 	else
 	{
 		line = ft_strnjoin(line, buf, ret);
-		ret = ft_parse_until_newline(fd, line, cache, buf);
+		return (NEWLINE_NOT_FOUND);
 	}
-
-	return (ret);
 }
 
 char	*get_next_line(int	fd)
 {
-	static char	**cache;
+	static char	*cache[OPEN_MAX];
 	char		*line;
 	char		buf[BUFFER_SIZE + 1];
+	char		file_state;
 
-	cache = ft_calloc(OPEN_MAX, sizeof(*cache));
 	line = NULL;
-	if (cache != NULL)
-		ft_parse_until_newline(fd, line, cache, buf);
+	file_state = NEWLINE_NOT_FOUND;
+	while (file_state != EOF_REACHED)
+	{
+		file_state = ft_parse_until_newline(fd, line, cache, buf);
+	}
+	if (file_state == NEWLINE_FOUND)
+
 
 	return (line);
 }

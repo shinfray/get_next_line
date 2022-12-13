@@ -6,12 +6,16 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 00:11:56 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/11 17:13:40 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/13 10:58:25 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# define EOF_REACHED	0
+# define NEWLINE_NOT_FOUND	1
+# define NEWLINE_FOUND	2
 
 # include <stdlib.h>
 # include <unistd.h>
