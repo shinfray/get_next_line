@@ -6,7 +6,7 @@
 /*   By: shinfray <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:54:04 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/13 15:27:04 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:16:55 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@ void	ft_save_in_cache(char **line, char *buf)
 {
 	size_t	n;
 	size_t	i;
-	char	*ptr;
 
-	n = ft_strchr(buf, '\n') - buf + 1;
+	n = (ft_strchr(buf, '\n') - buf) + 1;
 	i = 0;
-	ptr = ft_strnjoin(*line, buf, n);
-	free(*line);
-	*line = ptr;
+	*line = ft_strnjoin(*line, buf, n);
 	/*
 	 *cache[fd] = ft_calloc(ft_strlen(buf) - n + 1, sizeof(*cache[fd]));
 	 *while (buf[n] != '\0')
@@ -33,7 +30,6 @@ void	ft_save_in_cache(char **line, char *buf)
 char	ft_parse(int fd, char **line, char *buf)
 {
 	ssize_t	ret;
-	char	*ptr;
 
 	ret = read(fd, buf, BUFFER_SIZE);
 	if (ret < 1)
@@ -43,9 +39,7 @@ char	ft_parse(int fd, char **line, char *buf)
 		return (NEWLINE_FOUND);
 	else
 	{
-		ptr = ft_strnjoin(*line, buf, ret);
-		free(*line);
-		*line = ptr;
+		*line = ft_strnjoin(*line, buf, ret);
 		return (NEWLINE_NOT_FOUND);
 	}
 }
@@ -54,13 +48,15 @@ char	*get_next_line(int fd)
 {
 	//static char	*cache[OPEN_MAX];
 	char		*line;
-	char		buf[BUFFER_SIZE + 1];
+	char		*buf;
 	char		file_state;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || BUFFER_SIZE > SSIZE_MAX)
 		return (NULL);
-
 	line = NULL;
+	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(*buf));
+	if (buf == NULL)
+		return (NULL);
 	file_state = NEWLINE_NOT_FOUND;
 	while (file_state != EOF_REACHED)
 	{
@@ -68,8 +64,10 @@ char	*get_next_line(int fd)
 		if (file_state == NEWLINE_FOUND)
 		{
 			ft_save_in_cache(&line, buf);
+			free(buf);
 			return (line);
 		}
 	}
+	free(buf);
 	return (line);
 }

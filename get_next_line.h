@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 00:11:56 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/13 15:15:02 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/13 15:53:49 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 char	*get_next_line(int fd);
 
 void	*ft_calloc(size_t count, size_t size);
-char	*ft_strnjoin(char const *s1, char const *s2, size_t n);
+char	*ft_strnjoin(char *s1, char const *s2, size_t n);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 
