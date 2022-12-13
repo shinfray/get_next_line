@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:54:04 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/13 18:35:48 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/13 21:27:32 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	ft_save_in_cache(char **line, char *buf, char **cache, int fd)
 	*line = ft_strnjoin(*line, buf, n);
 	cache[fd] = ft_calloc(ft_strlen(buf) - n + 1, sizeof(*cache[fd]));
 	while (buf[n] != '\0')
-	    cache[fd][i++] = buf[n++];
+		cache[fd][i++] = buf[n++];
 }
 
-char	ft_parse(int fd, char **line, char *buf, char **cache)
+char	ft_parse(int fd, char **line, char *buf)
 {
 	ssize_t	ret;
 
@@ -33,8 +33,6 @@ char	ft_parse(int fd, char **line, char *buf, char **cache)
 	if (ret < 1)
 		return (EOF_REACHED);
 	buf[ret] = '\0';
-	if (cache[fd] != NULL)
-		*line = ft_strnjoin(cache[fd], buf, BUFFER_SIZE);
 	if (ft_strchr(buf, '\n') != NULL)
 		return (NEWLINE_FOUND);
 	else
@@ -48,26 +46,23 @@ char	*get_next_line(int fd)
 {
 	static char	*cache[OPEN_MAX];
 	char		*line;
-	char		*buf;
+	char		buf[BUFFER_SIZE + 1];
 	char		file_state;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || BUFFER_SIZE > SSIZE_MAX)
 		return (NULL);
 	line = NULL;
-	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(*buf));
-	if (buf == NULL)
-		return (NULL);
+	if (cache[fd] != NULL)
+		line = ft_strnjoin(cache[fd], NULL, BUFFER_SIZE);
 	file_state = NEWLINE_NOT_FOUND;
 	while (file_state != EOF_REACHED)
 	{
-		file_state = ft_parse(fd, &line, buf, cache);
+		file_state = ft_parse(fd, &line, buf);
 		if (file_state == NEWLINE_FOUND)
 		{
 			ft_save_in_cache(&line, buf, cache, fd);
-			free(buf);
 			return (line);
 		}
 	}
-	free(buf);
 	return (line);
 }
