@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shinfray <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:55:04 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/13 16:13:51 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:31:54 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*ft_strnjoin(char *s1, char const *s2, size_t n)
 	}
 	while (j < s2_len)
 		str[i++] = s2[j++];
-	str[i] = '\0';
-	free(s1);
+	if (s1 != NULL)
+		free(s1);
 	return (str);
 }
