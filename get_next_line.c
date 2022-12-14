@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:54:04 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/14 16:04:02y shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:12:57 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_save_in_cache(char **line, char *buf, char *cache)
 	const size_t	len_buf = ft_strlen(buf);
 	size_t			n;
 	size_t			i;
-	
 
 	n = (ft_strchr(buf, '\n') - buf) + 1;
 	i = 0;
@@ -39,7 +38,6 @@ void	ft_save_in_cache(char **line, char *buf, char *cache)
 		return ;
 	while (buf[n] != '\0')
 		cache[i++] = buf[n++];
-//	printf("\n===%s===\n", cache);
 }
 
 char	ft_retrieve_from_cache(char **cache, char **line, char *buf)
@@ -66,7 +64,6 @@ char	ft_retrieve_from_cache(char **cache, char **line, char *buf)
 	}
 	return (NEWLINE_NOT_FOUND);
 }
-
 
 char	ft_parse(int fd, char **line, char *buf)
 {
