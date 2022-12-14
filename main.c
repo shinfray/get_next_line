@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:44:19 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/14 13:53:04 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:46:55 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	main(void)
 	n = 0;
 	fd = open("coucou.txt", O_RDONLY);
 	//fd2 = open("hello.txt", O_RDONLY);
-	while (n++ < 6)
+	while (n++ < 4)
 	{
 		ptr = (get_next_line(fd));
 		//ptr2 = (get_next_line(fd2));
-		printf("%s\n", ptr);
+		printf("%s", ptr);
 		//printf("%s === hello!\n", ptr2);
 	}
 	close(fd);
