@@ -6,13 +6,13 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:54:04 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/14 18:12:57 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/15 10:00:31by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_free_cache(char **cache, char **line)
+static void	ft_free_cache(char **cache, char **line)
 {
 	if (*cache != NULL)
 		free(*cache);
@@ -22,7 +22,7 @@ void	ft_free_cache(char **cache, char **line)
 	*line = NULL;
 }
 
-void	ft_save_in_cache(char **line, char *buf, char *cache)
+static void	ft_save_in_cache(char **line, char *buf, char *cache)
 {
 	const size_t	len_buf = ft_strlen(buf);
 	size_t			n;
@@ -40,18 +40,15 @@ void	ft_save_in_cache(char **line, char *buf, char *cache)
 		cache[i++] = buf[n++];
 }
 
-char	ft_retrieve_from_cache(char **cache, char **line, char *buf)
+static bool	ft_retrieve_from_cache(char **cache, char **line, char *buf)
 {
 	size_t	i;
 
 	if (*cache != NULL)
 	{
-		i = 0;
-		while (*cache[i] != '\0')
-		{
+		i = -1;
+		while (*cache[++i] != '\0')
 			buf[i] = *cache[i];
-			++i;
-		}
 		buf[i] = '\0';
 		free(*cache);
 		*cache = NULL;
@@ -65,22 +62,23 @@ char	ft_retrieve_from_cache(char **cache, char **line, char *buf)
 	return (NEWLINE_NOT_FOUND);
 }
 
-char	ft_parse(int fd, char **line, char *buf)
+static void	ft_parser(int fd, char **line, char *buf, char **cache)
 {
 	ssize_t	ret;
-
-	ret = read(fd, buf, BUFFER_SIZE);
-	if (ret == 0)
-		return (EOF_REACHED);
-	if (ret == -1)
-		return (ERROR);
-	buf[ret] = '\0';
-	if (ft_strchr(buf, '\n') != NULL)
-		return (NEWLINE_FOUND);
-	else
+	
+	ret = 1;
+	while (ret > 0)
 	{
-		*line = ft_strnjoin(*line, buf, ret);
-		return (NEWLINE_NOT_FOUND);
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret == ERROR)
+			return (ft_free_cache(cache, line));
+		else if (ret == EOF_REACHED)
+			return ;
+		buf[ret] = '\0';
+		if (ft_strchr(buf, '\n') != NULL)
+			return (ft_save_in_cache(line, buf, *cache));
+		else
+			*line = ft_strnjoin(*line, buf, ret);
 	}
 }
 
@@ -89,27 +87,11 @@ char	*get_next_line(int fd)
 	static char	*cache[OPEN_MAX] = {NULL};
 	char		*line;
 	char		buf[BUFFER_SIZE + 1];
-	char		file_state;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || BUFFER_SIZE > SSIZE_MAX)
 		return (NULL);
 	line = NULL;
-	if (ft_retrieve_from_cache(&cache[fd], &line, buf) == NEWLINE_FOUND)
-		return (line);
-	file_state = NEWLINE_NOT_FOUND;
-	while (file_state != EOF_REACHED)
-	{
-		file_state = ft_parse(fd, &line, buf);
-		if (file_state == NEWLINE_FOUND)
-		{
-			ft_save_in_cache(&line, buf, cache[fd]);
-			return (line);
-		}
-		else if (file_state == ERROR)
-		{
-			ft_free_cache(&cache[fd], &line);
-			return (NULL);
-		}
-	}
+	if (ft_retrieve_from_cache(&cache[fd], &line, buf) != NEWLINE_FOUND)
+		ft_parser(fd, &line, buf, &cache[fd]);
 	return (line);
 }
