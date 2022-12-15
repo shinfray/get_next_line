@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:54:04 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/15 16:36:26 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/15 19:25:47 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,12 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		buf[BUFFER_SIZE + 1];
 
-	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || BUFFER_SIZE > SSIZE_MAX)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1)
 		return (NULL);
 	line = NULL;
 	if (ft_retrieve_from_cache(&cache[fd], &line, buf) != NEWLINE_FOUND)
 		ft_parser(fd, &line, buf, &cache[fd]);
 	return (line);
 }
+//8384280
+//8380128 -fsanitize=address -g
