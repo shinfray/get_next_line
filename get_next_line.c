@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:54:04 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/15 19:25:47 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/15 19:35:05 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_free_cache(char **cache, char **line)
 	*line = NULL;
 }
 
-static void	ft_save_in_cache(char **line, char *buf, char *cache)
+static void	ft_save_in_cache(char **line, char *buf, char **cache)
 {
 	const size_t	len_buf = ft_strlen(buf);
 	size_t			n;
@@ -33,11 +33,11 @@ static void	ft_save_in_cache(char **line, char *buf, char *cache)
 	*line = ft_strnjoin(*line, buf, n);
 	if (n == len_buf)
 		return ;
-	cache = ft_calloc(len_buf - n + 1, sizeof(*cache));
-	if (cache == NULL)
+	*cache = ft_calloc(len_buf - n + 1, sizeof(**cache));
+	if (*cache == NULL)
 		return ;
 	while (buf[n] != '\0')
-		cache[i++] = buf[n++];
+		*cache[i++] = buf[n++];
 }
 
 static bool	ft_retrieve_from_cache(char **cache, char **line, char *buf)
@@ -54,7 +54,7 @@ static bool	ft_retrieve_from_cache(char **cache, char **line, char *buf)
 		*cache = NULL;
 		if (ft_strchr(buf, '\n') != NULL)
 		{
-			ft_save_in_cache(line, buf, *cache);
+			ft_save_in_cache(line, buf, cache);
 			return (NEWLINE_FOUND);
 		}
 		*line = ft_strnjoin(*line, buf, BUFFER_SIZE);
@@ -76,7 +76,7 @@ static void	ft_parser(int fd, char **line, char *buf, char **cache)
 			return ;
 		buf[ret] = '\0';
 		if (ft_strchr(buf, '\n') != NULL)
-			return (ft_save_in_cache(line, buf, *cache));
+			return (ft_save_in_cache(line, buf, cache));
 		else
 			*line = ft_strnjoin(*line, buf, ret);
 	}
