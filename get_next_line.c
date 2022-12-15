@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:54:04 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/15 16:32:42 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:36:26 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	ft_parser(int fd, char **line, char *buf, char **cache)
 
 char	*get_next_line(int fd)
 {
-	static char	cache[OPEN_MAX] = {NULL};
+	static char	*cache[OPEN_MAX] = {NULL};
 	char		*line;
 	char		buf[BUFFER_SIZE + 1];
 
