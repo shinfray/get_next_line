@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:44:19 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/15 14:47:58 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:49:13 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(void)
 	{
 		ptr = (get_next_line(fd));
 		//ptr2 = (get_next_line(fd2));
-		printf("%s", ptr);
+		printf("===%s===\n", ptr);
 		//printf("%s === hello!\n", ptr2);
 	}
 	close(fd);
