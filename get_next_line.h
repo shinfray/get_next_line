@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 00:11:56 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/15 10:36:58 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/17 21:14:51 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define ERROR				-1
 # define EOF_REACHED		0
-# define NEWLINE_FOUND		true
-# define NEWLINE_NOT_FOUND	false
+# define NEWLINE_FOUND		1
+# define NEWLINE_NOT_FOUND	0
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -24,9 +24,6 @@
 # include <stdbool.h>
 
 	/* to delete before evaluation !!!!! */
-# include <stdio.h>
-# include <string.h>
-# include <fcntl.h>
 
 char	*get_next_line(int fd);
 
