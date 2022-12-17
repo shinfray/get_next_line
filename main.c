@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 17:44:19 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/17 21:00:26 shinfray         ###   ########.fr       */
+/*   Created: 2022/12/17 21:19:18 by shinfray          #+#    #+#             */
+/*   Updated: 2022/12/17 21:21:33 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 
 	n = 0;
 	fd = open("hello.txt", O_RDONLY);
-	fd2 = open("coucou.txt", O_RDONLY);
+	fd2 = open("hello2.txt", O_RDONLY);
 	while (n++ < 12)
 	{
 		ptr = (get_next_line(fd));
@@ -34,7 +34,7 @@ int	main(void)
 	while (n++ < 12)
 	{
 		ptr2 = (get_next_line(fd2));
-		printf("=== coucou : %s", ptr2);
+		printf("=== hello2 : %s", ptr2);
 	}
 	close(fd);
 	close(fd2);
