@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:19:02 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/17 21:19:10 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/18 01:12:26 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@
 # include <limits.h>
 # include <stdbool.h>
 
-	/* to delete before evaluation !!!!! */
-
 char	*get_next_line(int fd);
 
+size_t	ft_strlen(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strnjoin(char *s1, char const *s2, size_t n);
-size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 
 #endif

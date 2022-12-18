@@ -6,22 +6,24 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:19:38 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/17 21:19:44 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/18 01:20:11 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+static void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	const char	c2 = c;
+	char		*cast_dst;
+	const char	*cast_src;
 
-	while (*s != c2)
-	{
-		if (*s++ == '\0')
-			return (NULL);
-	}
-	return ((char *)s);
+	cast_dst = (char *)dst;
+	cast_src = (const char *)src;
+	if (n == 0 || cast_src == cast_dst)
+		return (dst);
+	while (n--)
+		*cast_dst++ = *cast_src++;
+	return (dst);
 }
 
 size_t	ft_strlen(const char *str)
@@ -37,11 +39,10 @@ size_t	ft_strlen(const char *str)
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	size_t	full_size;
-	size_t	i;
-	char	*ptr;
+	const size_t	full_size = size * count;
+	size_t			i;
+	char			*ptr;
 
-	full_size = size * count;
 	i = 0;
 	ptr = malloc(full_size);
 	if (ptr != NULL)
@@ -56,24 +57,30 @@ char	*ft_strnjoin(char *s1, char const *s2, size_t n)
 {
 	size_t	s1_len;
 	size_t	s2_len;
-	size_t	i;
-	size_t	j;
 	char	*str;
 
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	i = -1;
-	j = 0;
 	if (n < s2_len)
 		s2_len = n;
 	str = ft_calloc(s1_len + s2_len + 1, sizeof(*str));
 	if (str == NULL)
 		return (NULL);
-	while (++i < s1_len)
-		str[i] = s1[i];
-	while (j < s2_len)
-		str[i++] = s2[j++];
+	ft_memcpy(str, s1, s1_len);
+	ft_memcpy(str + s1_len, s2, s2_len);
 	if (s1 != NULL)
 		free(s1);
 	return (str);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	const char	c2 = c;
+
+	while (*s != c2)
+	{
+		if (*s++ == '\0')
+			return (NULL);
+	}
+	return ((char *)s);
 }
