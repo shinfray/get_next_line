@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:20:03 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/18 12:32:27 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:42:59 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static bool	ft_retrieve_from_cache(char **cache, char **line)
 
 char	*get_next_line(int fd)
 {
-	static char	*cache[OPEN_MAX] = {NULL};
+	static char	*cache[OPEN_MAX];
 	char		*line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || BUFFER_SIZE >= INT_MAX)

@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:19:38 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/18 01:20:11 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/19 14:25:17 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ char	*ft_strnjoin(char *s1, char const *s2, size_t n)
 	if (n < s2_len)
 		s2_len = n;
 	str = ft_calloc(s1_len + s2_len + 1, sizeof(*str));
-	if (str == NULL)
-		return (NULL);
-	ft_memcpy(str, s1, s1_len);
-	ft_memcpy(str + s1_len, s2, s2_len);
+	if (str != NULL)
+	{
+		ft_memcpy(str, s1, s1_len);
+		ft_memcpy(str + s1_len, s2, s2_len);
+	}
 	if (s1 != NULL)
 		free(s1);
 	return (str);
