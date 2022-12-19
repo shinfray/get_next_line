@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 18:19:45 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/19 18:20:16 by shinfray         ###   ########.fr       */
+/*   Created: 2022/12/19 18:23:48 by shinfray          #+#    #+#             */
+/*   Updated: 2022/12/19 18:23:58 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
