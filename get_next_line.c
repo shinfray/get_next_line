@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:20:03 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/19 18:30:10 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/20 09:41:38 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || BUFFER_SIZE >= INT_MAX)
-		return (NULL);
 	line = NULL;
 	if (ft_retrieve_from_cache(&cache, &line) == NEWLINE_NOT_FOUND)
 		ft_parser(fd, &line, &cache);
