@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:19:18 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/20 12:06:22 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/20 18:28:05 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(void)
 //	char	*ptr2;
 
 	n = 0;
-	fd = open("one_line_no_nl.txt", O_RDONLY);
+	fd = open("hello.txt", O_RDONLY);
 //	fd2 = open("hello2.txt", O_RDONLY);
 	while (n++ < 12)
 	{

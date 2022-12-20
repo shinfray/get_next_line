@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:20:03 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/20 17:23:40 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:55:27 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char	*ft_save_in_cache(char **line, char **str, char *newline_pos)
 	n = (newline_pos - *str) + 1;
 	i = 0;
 	*line = ft_strnjoin(line, *str, n);
+//	printf("==========%p========= line dans ft_save_in_cache\n", *line);
 	if (n == len_str)
 		cache = NULL;
 	else
