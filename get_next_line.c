@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:20:03 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/20 12:56:05 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:23:40 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 
 static void	ft_free_all(char **line, char **buf)
 {
-	if (*line != NULL)
+	if (line != NULL && *line != NULL)
+	{
 		free(*line);
-	if (*buf != NULL)
+		*line = NULL;
+	}
+	if (buf != NULL && *buf != NULL)
+	{
 		free(*buf);
+		*buf = NULL;
+	}
 }
 
 static char	*ft_save_in_cache(char **line, char **str, char *newline_pos)
@@ -35,13 +41,13 @@ static char	*ft_save_in_cache(char **line, char **str, char *newline_pos)
 		cache = NULL;
 	else
 		cache = ft_calloc(len_str - n + 1, sizeof(*cache));
+//	printf("==========%p========= cache dans ft_save_in_cache\n", cache);
 	if (cache != NULL)
 	{
 		while ((*str)[n] != '\0')
 			cache[i++] = (*str)[n++];
 	}
-	free(*str);
-	*str = NULL;
+	ft_free_all(NULL, str);
 	return (cache);
 }
 
@@ -55,17 +61,14 @@ static void	ft_parser(int fd, char **line, char **cache)
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(*buf));
 	if (buf == NULL)
 		return (ft_free_all(line, &buf));
+//	printf("==========%p========= buf dans ft_parser\n", buf);
 	while (ret > 0)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == -1)
+		if (ret == ERROR)
 			return (ft_free_all(line, &buf));
-		else if (ret == 0)
-		{
-			free(buf);
-			buf = NULL;
-			return ;
-		}
+		else if (ret == EOF_REACHED)
+			return (ft_free_all(NULL, &buf));
 		buf[ret] = '\0';
 		newline_pos = ft_strchr(buf, '\n');
 		if (newline_pos != NULL)
@@ -74,6 +77,7 @@ static void	ft_parser(int fd, char **line, char **cache)
 			return (ft_free_all(NULL, &buf));
 		}
 		*line = ft_strnjoin(line, buf, ret);
+//		printf("==========%p========= line dans ft_parser\n", *line);
 	}
 }
 
@@ -90,6 +94,7 @@ static bool	ft_retrieve_from_cache(char **cache, char **line)
 			return (NEWLINE_FOUND);
 		}
 		*line = ft_strnjoin(cache, NULL, BUFFER_SIZE);
+//		printf("==========%p========= line dans ft_retrieve f c\n", line);
 	}
 	return (NEWLINE_NOT_FOUND);
 }

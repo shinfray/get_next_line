@@ -6,12 +6,11 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:19:45 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/20 12:56:17 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/20 15:04:14 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
