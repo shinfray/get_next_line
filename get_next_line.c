@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:20:03 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/20 17:55:27 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:50:37 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,10 @@ static char	*ft_save_in_cache(char **line, char **str, char *newline_pos)
 	n = (newline_pos - *str) + 1;
 	i = 0;
 	*line = ft_strnjoin(line, *str, n);
-//	printf("==========%p========= line dans ft_save_in_cache\n", *line);
 	if (n == len_str)
 		cache = NULL;
 	else
 		cache = ft_calloc(len_str - n + 1, sizeof(*cache));
-//	printf("==========%p========= cache dans ft_save_in_cache\n", cache);
 	if (cache != NULL)
 	{
 		while ((*str)[n] != '\0')
@@ -61,8 +59,7 @@ static void	ft_parser(int fd, char **line, char **cache)
 	ret = 1;
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(*buf));
 	if (buf == NULL)
-		return (ft_free_all(line, &buf));
-//	printf("==========%p========= buf dans ft_parser\n", buf);
+		return (ft_free_all(line, NULL));
 	while (ret > 0)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
@@ -75,10 +72,9 @@ static void	ft_parser(int fd, char **line, char **cache)
 		if (newline_pos != NULL)
 		{
 			*cache = ft_save_in_cache(line, &buf, newline_pos);
-			return (ft_free_all(NULL, &buf));
+			return ;
 		}
 		*line = ft_strnjoin(line, buf, ret);
-//		printf("==========%p========= line dans ft_parser\n", *line);
 	}
 }
 
@@ -95,7 +91,6 @@ static bool	ft_retrieve_from_cache(char **cache, char **line)
 			return (NEWLINE_FOUND);
 		}
 		*line = ft_strnjoin(cache, NULL, BUFFER_SIZE);
-//		printf("==========%p========= line dans ft_retrieve f c\n", line);
 	}
 	return (NEWLINE_NOT_FOUND);
 }
