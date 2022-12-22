@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:19:02 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/20 11:39:15 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:39:25 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-# include <stdbool.h>
 
 char	*get_next_line(int fd);
 

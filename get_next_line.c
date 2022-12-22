@@ -6,12 +6,11 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:20:03 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/22 18:17:20 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:33:14 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*ft_free_all(char **line, char **buf)
 {
