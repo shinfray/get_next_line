@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:23:48 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/22 09:37:24 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/22 21:45:01 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_strnjoin(char **s1, char const *s2, size_t n)
 		ft_memcpy(str, *s1, s1_len);
 		ft_memcpy(str + s1_len, s2, s2_len);
 	}
-	if ( s1 != NULL && *s1 != NULL)
+	if (s1 != NULL && *s1 != NULL)
 		free(*s1);
 	*s1 = NULL;
 	return (str);
