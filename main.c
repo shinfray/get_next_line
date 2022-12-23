@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:19:18 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/22 21:44:16 by shinfray         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:26:06 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	char	*ptr;
 
 	n = 0;
-	fd = open("25kline", O_RDONLY);
+	fd = open("hello.txt", O_RDONLY);
 	while (n++ < 12)
 	{
 		ptr = (get_next_line(fd));
