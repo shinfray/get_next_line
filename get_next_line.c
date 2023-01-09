@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 21:20:03 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/22 21:33:14 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:20:59 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,12 @@ static char	*ft_parser(int fd, char **line)
 	char	*buf;
 	char	*newline_pos;
 
-	bytes_read = 1;
 	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(*buf));
 	if (buf == NULL)
 		return (ft_free_all(line, NULL));
+	bytes_read = read(fd, buf, BUFFER_SIZE);
 	while (bytes_read > 0)
 	{
-		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read == ERROR)
-			return (ft_free_all(line, &buf));
-		else if (bytes_read == EOF_REACHED)
-			return (ft_free_all(NULL, &buf));
 		buf[bytes_read] = '\0';
 		newline_pos = ft_strchr(buf, '\n');
 		if (newline_pos != NULL)
@@ -73,8 +68,11 @@ static char	*ft_parser(int fd, char **line)
 		*line = ft_strnjoin(line, buf, bytes_read);
 		if (*line == NULL)
 			return (ft_free_all(NULL, &buf));
+		bytes_read = read(fd, buf, BUFFER_SIZE);
 	}
-	return (NULL);
+	if (bytes_read < 0)
+		return (ft_free_all(line, &buf));
+	return (ft_free_all(NULL, &buf));
 }
 
 static char	ft_retrieve_from_cache(char **cache, char **line)
