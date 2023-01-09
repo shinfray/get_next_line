@@ -6,7 +6,7 @@
 /*   By: shinfray <shinfray@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 18:23:48 by shinfray          #+#    #+#             */
-/*   Updated: 2022/12/22 21:45:01 by shinfray         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:36:00 by shinfray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	ft_gnl_strlen(const char *str)
 {
 	const char *const	ptr = str;
 
@@ -53,14 +53,14 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-char	*ft_strnjoin(char **s1, char const *s2, size_t n)
+char	*ft_gnl_strnjoin(char **s1, char const *s2, size_t n)
 {
 	size_t	s1_len;
 	size_t	s2_len;
 	char	*str;
 
-	s1_len = ft_strlen(*s1);
-	s2_len = ft_strlen(s2);
+	s1_len = ft_gnl_strlen(*s1);
+	s2_len = ft_gnl_strlen(s2);
 	if (n < s2_len)
 		s2_len = n;
 	str = ft_calloc(s1_len + s2_len + 1, sizeof(*str));
